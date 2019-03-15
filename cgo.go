@@ -8,7 +8,6 @@ package gocv
 #cgo !windows pkg-config: opencv4
 #cgo android CXXFLAGS: -I${SRCDIR}/OpenCV-android-sdk-3.4.3/sdk/native/jni/include
 #cgo android,arm LDFLAGS: -L${SRCDIR}/OpenCV-android-sdk-3.4.3/sdk/native/libs/armeabi-v7a -lopencv_java3
-#cgo android,arm64 LDFLAGS: -L${SRCDIR}/OpenCV-android-sdk-3.4.3/sdk/native/libs/arm64-v8a -lopencv_java3
 #cgo android,386 LDFLAGS: -L${SRCDIR}/OpenCV-android-sdk-3.4.3/sdk/native/libs/x86 -lopencv_java3 -lm
 #cgo !windows,!android pkg-config: opencv
 #cgo CXXFLAGS:   --std=c++11

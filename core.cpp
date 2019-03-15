@@ -24,8 +24,8 @@ Mat Mat_NewWithSizeFromScalar(Scalar ar, int rows, int cols, int type) {
     return new cv::Mat(rows, cols, type, c);
 }
 
-Mat Mat_NewFromBytes(int rows, int cols, int type, struct ByteArray buf) {
-    return new cv::Mat(rows, cols, type, buf.data);
+Mat Mat_NewFromBytes(int rows, int cols, int type, struct ByteArray buf, int step) {
+    return new cv::Mat(rows, cols, type, buf.data, (size_t) step);
 }
 
 Mat Mat_FromPtr(Mat m, int rows, int cols, int type, int prow, int pcol) {
