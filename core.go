@@ -142,12 +142,12 @@ func NewMatWithSizeFromScalar(s Scalar, rows int, cols int, mt MatType) Mat {
 }
 
 // NewMatFromBytes returns a new Mat with a specific size and type, initialized from a []byte.
-func NewMatFromBytes(rows int, cols int, mt MatType, data []byte) (Mat, error) {
+func NewMatFromBytes(rows int, cols int, mt MatType, data []byte, step int) (Mat, error) {
 	cBytes, err := toByteArray(data)
 	if err != nil {
 		return Mat{}, err
 	}
-	return Mat{p: C.Mat_NewFromBytes(C.int(rows), C.int(cols), C.int(mt), *cBytes)}, nil
+	return Mat{p: C.Mat_NewFromBytes(C.int(rows), C.int(cols), C.int(mt), *cBytes, C.int(step))}, nil
 }
 
 // FromPtr returns a new Mat with a specific size and type, initialized from a Mat Ptr.
@@ -719,7 +719,7 @@ func ImageToMatRGBA(img image.Image) (Mat, error) {
 			data = append(data, byte(b>>8), byte(g>>8), byte(r>>8), byte(a>>8))
 		}
 	}
-	return NewMatFromBytes(y, x, MatTypeCV8UC4, data)
+	return NewMatFromBytes(y, x, MatTypeCV8UC4, data, 0)
 }
 
 //ImageToMatRGB converts image.Image to gocv.Mat,
@@ -736,7 +736,7 @@ func ImageToMatRGB(img image.Image) (Mat, error) {
 			data = append(data, byte(b>>8), byte(g>>8), byte(r>>8))
 		}
 	}
-	return NewMatFromBytes(y, x, MatTypeCV8UC3, data)
+	return NewMatFromBytes(y, x, MatTypeCV8UC3, data, 0)
 }
 
 //ImageGrayToMatGray converts image.Gray to gocv.Mat,
@@ -752,7 +752,7 @@ func ImageGrayToMatGray(img *image.Gray) (Mat, error) {
 			data = append(data, img.GrayAt(i, j).Y)
 		}
 	}
-	return NewMatFromBytes(y, x, MatTypeCV8UC1, data)
+	return NewMatFromBytes(y, x, MatTypeCV8UC1, data, 0)
 }
 
 // AbsDiff calculates the per-element absolute difference between two arrays
